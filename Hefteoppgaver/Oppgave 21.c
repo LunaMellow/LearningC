@@ -14,7 +14,7 @@
  *      @alias LunaMellow
  */
 
-// CODE STARTS BELOW THIS LINE
+// Includes
 
 #include <stdio.h>
 
