@@ -5,5 +5,4 @@ Different programs in C from a tasksheet
 > Hope you learn from it and feel free to use the methods for your own projects.
 
 Sincerely,
-
 LunaMellow <3
