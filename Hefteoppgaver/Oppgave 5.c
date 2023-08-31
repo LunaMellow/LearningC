@@ -3,9 +3,9 @@
  *      Task 5 in grprog.pdf
  *
  *      Program description:
- *          - This is in in the program
- *          - This is in in the program
- *          - This is in in the program
+ *          - Take the dimensions of a prism
+ *          - Calculate the volume from the dimensions
+ *          - Print out the result
  *
  *      @file Oppgave 5.c
  *      @date 8/31/2023
