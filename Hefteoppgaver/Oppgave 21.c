@@ -18,11 +18,7 @@
 
 #include <stdio.h>
 
-// Declare constant variables
-const int hourInSeconds = 60*60;             // Declare how many seconds in one hour
-const int minuteInSeconds = 60;              // Declare how many seconds in one minute
-const int oneSecond = 1;                     // Define a single second
-
+// Void function for time format and calculation
 void writeTime(int hour, int min, int sec) {
     printf("%02d:%02d:%02d\n", hour, min, sec);
 
