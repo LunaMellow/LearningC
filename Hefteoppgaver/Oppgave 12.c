@@ -21,3 +21,10 @@
 /**
  *      Main Program starts here
  */
+
+int main() {
+
+    int number = 234;
+
+    return 0;
+}
