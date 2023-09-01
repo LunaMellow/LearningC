@@ -1,11 +1,11 @@
 
-/**     Project name
+/**     The volume of a cylinder
  *      Task 13 in grprog.pdf
  *
  *      Program description:
- *          - This happens in the code
- *          - This happens in the code
- *          - This happens in the code
+ *          - Define cylinder height and value of PI
+ *          - Take user input for the value of the cylinder radius
+ *          - Calculate the volume using the formula for cylinder volume
  * 
  *      @file Oppgave 13.c
  *      @date 01/09/2023
