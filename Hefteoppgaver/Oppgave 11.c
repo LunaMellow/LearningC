@@ -49,7 +49,7 @@ int main() {
     number[4] = number2[6] + number2[5] +number2[4];
 
     // Print out the new number[] array values we just changed
-    printf("Element 4:\n%d\n\nElement 5:\n%d\n", number[3], number[4]);
+    printf("Element 4:\n%d\n\nElement 5:\n%d\n\n", number[3], number[4]);
 
     // Increase value of element 4 of the number[] array 3 times
     for (int i = 3; i <= 3; i++) {
@@ -57,7 +57,7 @@ int main() {
     }
 
     // Print out the result after incrementing
-    printf("%d", number[2]);
+    printf("Element 3 incremented:\n%d\n\n", number[2]);
 
     // Add the char 'A' to the second element of the text[] array and 'E' to the fourth
     text[1] = 'A';
@@ -69,7 +69,14 @@ int main() {
     // Copy the first element from the name[] array and set it into the text[] arrays third element
     text[2] = name[0];
 
-    printf("Kua har ");
+    // Print out first 4 elements of the text[] array
+    printf("Kua har %c%c%c%c\n\n", text[0], text[1], text[2], text[3]);
+
+    // Print out only the last 3 array elements of the address[] array "111"
+    printf("Address: %c%c%c\n\n", address[9], address[10], address[11]);
+
+    // Print out the whole name and address arrays on seperate lines
+    printf("Name: %s\nAddress: %s\n", name, address);
 
     return 0;
 
