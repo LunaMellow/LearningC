@@ -2,9 +2,9 @@
 /**     Arrays
  *
  *      Program description:
- *          - This is in in the program
- *          - This is in in the program
- *          - This is in in the program
+ *          - Declare 2 int arrays, and 3 char arrays
+ *          - Play around with different arrays
+ *          - Print out all their changed values and results
  *
  *      @file Oppgave 11.c
  *      @date 8/31/2023
