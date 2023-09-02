@@ -50,6 +50,7 @@ int main() {
         }
     }
 
+    // Title
     printf("\nNumber array elements:");
 
     // Print out all the number elements
@@ -75,6 +76,7 @@ int main() {
         }
     }
 
+    // Title
     printf("\nChar array elements:");
 
     // Print out all the characters elements in uppercase
