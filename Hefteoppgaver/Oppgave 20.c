@@ -28,7 +28,7 @@ int main() {
     int phoneNum;
 
     // Get user phone number input and determines if it is a valid number
-    printf("Enter an integer: \n");
+    printf("Enter an number: \n");
     if (scanf("%d", &phoneNum) != 1) {
 
         // Input is not a valid integer
