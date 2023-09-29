@@ -15,28 +15,64 @@
 
 // Includes
 #include <stdio.h>
-#include <stdbool.h>
 
 // Declare consts
-const int MAXOPERASJONER = 50;
 
 /**
  *      Main Program starts here
  */
 
 int main() {
+    float result = 0.0;
+    char operator;
+    float number;
 
-    // Declare variables
-    float tallInput[MAXOPERASJONER];
-    float akkumulator = 0.0;
-    float input;
+    printf("Simple Calculator\n");
+    printf("= %.2f\n", result);
 
     while (1) {
+        printf(": ");
+        if (scanf(" %c%f", &operator, &number) != 2) {
+            printf("Invalid input. Please try again.\n");
+            while (getchar() != '\n');  // Clear input buffer
+            continue;
+        }
 
-        // Print first variable
-        printf("~ %f ", akkumulator);
+        if (operator == 'q' || operator == 'Q') {
+            break;
+        }
 
+        switch (operator) {
+            case 'e':
+            case 'E':
+                result = 0.0;
+                printf("Result reset to 0.0\n");
+                while (getchar() != '\n');  // Clear input buffer
+                break;
+            case '+':
+                result += number;
+                break;
+            case '-':
+                result -= number;
+                break;
+            case '*':
+                result *= number;
+                break;
+            case '/':
+                if (number != 0) {
+                    result /= number;
+                } else {
+                    printf("Division by zero is not allowed.\n");
+                }
+                break;
+            default:
+                printf("Invalid operator.\n");
+                break;
+        }
 
+        printf("= %.2f\n", result);
     }
+
+    printf("= %.2f\n", result);
     return 0;
 }

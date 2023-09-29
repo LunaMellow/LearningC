@@ -1,5 +1,5 @@
 
-/**     Project name
+/**     Ice-skating
  *      Task 17 in grprog.pdf
  *
  *      Program description:
@@ -16,6 +16,7 @@
 
 // Includes
 
+#include <string.h>
 #include <stdio.h>
 
 /**
@@ -24,7 +25,17 @@
 
 int main() {
 
+    char text[] = "apple";
 
+    int array_length = strlen(text);
+    char array_backwards[5];
+    int j = 0;
 
-    return 0;
+    for (int i = array_length; i > 0; i--) {
+            array_backwards[i] = text[j];
+            j++;
+    }
+
+    printf("%s", array_backwards);w
+
 }
