@@ -96,9 +96,6 @@ int main() {
             case 9:
                 printf("nine");
                 break;
-            case 10:
-                printf("ten");
-                break;
             default:
                 printf("zero");
                 break;
