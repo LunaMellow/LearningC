@@ -10,7 +10,7 @@
  *      @file Oblig 2.c
  *      @date 02/10/23
  *
- *      @author Luna Sofie Bergh
+ *      @author Luna S.
  *      @alias LunaMellow
  */
 
