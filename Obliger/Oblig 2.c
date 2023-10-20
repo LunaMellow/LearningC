@@ -36,20 +36,22 @@ int main() {
     while (indeks <= MAXOPERASJONER)  {
 
         // Checks if maximum operations limit reached, or if user entered 's' and stops program
-        if (operasjoner[indeks] == 's' || indeks == MAXOPERASJONER){
+        if (operasjoner[indeks] == 's' || indeks == MAXOPERASJONER) {
             printf("\nOperasjonene og tallene involvert:\n");
 
             // For loop to print out all array elements in their respected order
-            for (j = 0; j < indeks; j++)
+            for (j = 0; j < indeks; j++) {
 
                 // Print out the results in the correct way. 'c' and 't' get printed out with a different format
-                if (operasjoner[j] == 'c' || operasjoner[j] == 't')
-                    printf("\t%i. utregning: %11.3f %4c\t\t\t\t = %11.3f\n", j+1, akkumulator[j], operasjoner[j], akkumulator[j+1]);
+                if (operasjoner[j] == 'c' || operasjoner[j] == 't') {
+                    printf("\t%i. utregning: %11.3f %4c\t\t\t\t = %11.3f\n", j + 1, akkumulator[j], operasjoner[j],
+                           akkumulator[j + 1]);
+                }
                 else {
                     printf("\t%i. utregning: %11.3f %4c %11.3f\t = %11.3f\n",
                            j + 1, akkumulator[j], operasjoner[j], tall[j], akkumulator[j + 1]);
                 }
-
+            }
             // Exit the program
             return 0;
         }
