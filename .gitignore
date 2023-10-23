@@ -1,0 +1,9 @@
+/cmake-build-debug/
+/.idea/.gitignore
+/CMakeLists.txt
+/.idea/discord.xml
+/.idea/LearningC.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/Obliger/Test.c
+/.idea/vcs.xml
