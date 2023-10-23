@@ -99,7 +99,7 @@ int main() {
  */
 int antallIArray(int tall[], const int n, const int min, const int max) {
     int teller = 0;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i <= n; i++) {
         if (tall[i] < 2000 && tall[i] > 0) {
             teller++;
         }
@@ -115,7 +115,7 @@ int antallIArray(int tall[], const int n, const int min, const int max) {
  *
  */
 void fyllArray(int tall[], const int n) {
-    for (int i = 0; i <= n; i++) {
+    for (int i = 0; i < n; i++) {
         tall[i]=lesTall("Skriv et tall",0,2000);
     }
 }
