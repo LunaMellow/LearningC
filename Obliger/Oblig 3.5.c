@@ -2,9 +2,9 @@
 /**     Task 30 in grprog.pdf - Oblig 3.5
  *
  *      Program description:
- *          - This is in in the program
- *          - This is in in the program
- *          - This is in in the program
+ *          - Present user with menu command options
+ *          - Let the user manage their trolleys
+ *          - Quit if 'Q' is read
  *
  *      @file Oblig 3.5.c
  *      @date 06-Nov-23
@@ -25,12 +25,12 @@ struct Tralle {
     int tlfNr;
 };
 
-// Declare global Variables
-struct Tralle gTraller[30]; // Array av Tralle-struct'er.
-int gAntallUtlaant = 0; // Antall traller som pt. er utlånt.
-const int MAXTRALLER = 30; ///< Max. antall traller til utlån
+// Declare Global Variables
+struct Tralle gTraller[30]; // Array of Trolley-structs
+int gAntallUtlaant = 0; // Number of trolleys currently rented
+const int MAXTRALLER = 30; ///< Maximum number of trolleys available to rent
 
-// Function declarations
+// Function Declarations
 void finnLaaner();
 void innlevering();
 void ledige();
@@ -40,7 +40,7 @@ void skrivMeny();
 void utlaan();
 
 /**
- *      Main Program starts here
+ *      Main Program Starts Here
  */
 int main ()  {
     char kommando;
@@ -50,12 +50,12 @@ int main ()  {
 
     while (kommando != 'Q')  {
         switch (kommando)  {
-            case 'O':  oversikt();      break;    //  Oversikt over utlånte traller
-            case 'L':  ledige();        break;    //  Oversikt over ledige traller
-            case 'U':  utlaan();        break;    //  Utlån av tralle
-            case 'I':  innlevering();   break;    //  Lever inn tralle
-            case 'F':  finnLaaner();    break;    //  Finn tralle
-            default:   skrivMeny();     break;    //  Ikke-eksisterende menyvalg.
+            case 'O':  oversikt();      break;    //  Overview over rented trolleys
+            case 'L':  ledige();        break;    //  Overview over rentable trolleys
+            case 'U':  utlaan();        break;    //  Rent a trolley
+            case 'I':  innlevering();   break;    //  Return a trolley
+            case 'F':  finnLaaner();    break;    //  Find a trolley
+            default:   skrivMeny();     break;    //  Non-existent menu choice
         }
         kommando = lesKommando();
     }
@@ -65,21 +65,21 @@ int main ()  {
 }
 
 /**
- *  Finn låner
+ *  Find trolley owner
  */
 void finnLaaner() {
     printf("Finn Traller");
 }
 
 /**
- *  Innlevering
+ *  Return trolley
  */
 void innlevering() {
     printf("Innlever Traller");
 }
 
 /**
- *  Ledige
+ *  Available trolleys
  */
 void ledige(){
     printf("Ledige Traller");
@@ -128,7 +128,7 @@ void lesTekst(const char ledetekst[], char tekst[]) {
 }
 
 /**
- *  Oversikt
+ *  Overview over rented trolleys
  */
 void oversikt() {
     printf("Oversikt Traller");
@@ -150,7 +150,7 @@ void skrivMeny() {
 }
 
 /**
- *  Utlån
+ *  Rent a trolley
  */
 void utlaan() {
     printf("Utlån Traller");
