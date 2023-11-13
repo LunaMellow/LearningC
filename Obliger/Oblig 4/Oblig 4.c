@@ -108,7 +108,24 @@ void oppgaveTilknyttPersoner(struct Oppgave* oppgave) {
  *  nyOppgave
  */
 void nyOppgave() {
+    char svar;
 
+    do {
+        if (gSisteOppgave >= MAXOPPG) {
+            printf("Maksimalt antall oppgaver %d er nådd. Kan ikke lage flere\n", MAXOPPG);
+        }
+        else {
+            struct Oppgave *nyOppgave = (struct Oppgave *) malloc(sizeof(struct Oppgave));
+
+            oppgaveLesData(nyOppgave);
+
+            nyOppgave->neste = gOppgavene[gSisteOppgave];
+            gOppgavene[gSisteOppgave] = nyOppgave;
+            gSisteOppgave++;
+
+            lesText("En oppgave til (j/N)",&svar,1); getchar();
+        }
+    } while (svar != tolower('n'));
 }
 
 /**
