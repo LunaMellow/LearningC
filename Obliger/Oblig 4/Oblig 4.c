@@ -148,7 +148,7 @@ void oppgaveSkrivData(const struct Oppgave* oppgave) {
            oppgave->navn,
            oppgave->antallTotalt,
            oppgave->antallNaa,
-           oppgave->hvem);
+           oppgave->hvem); // Loop gjennom
 }
 
 /**
@@ -177,12 +177,12 @@ void fjernOppgave() {
  */
 void skrivMeny() {
     printf("\n--------------- Velkommen ---------------\n"
-           "\n"
-           "N = Ny Oppgave\n"
-           "S = Se oppgaver\n"
-           "L = Ledige oppgaver\n"
-           "T = Tilknytt oppgaver\n"
-           "F = Fjern oppgaver\n"
-           "\n"
-           "-----------------------------------------\n");
+                  "\n"
+                  "N = Ny Oppgave\n"
+                  "S = Se oppgaver\n"
+                  "L = Ledige oppgaver\n"
+                  "T = Tilknytt oppgaver\n"
+                  "F = Fjern oppgaver\n"
+                  "\n"
+                  "-----------------------------------------\n");
 }
