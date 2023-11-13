@@ -22,12 +22,15 @@
 // Const Declarations
 #define MAXPERS 6                       ///< Maximum people
 #define MAXOPPG 20                      ///< Maximum tasks
+#define MAXBOKSTAVER 20                 ///< Maximum letters allowed
 
 // Struct Declarations
 struct Oppgave {
     char* navn;
-    int antallTotalt, antallNaa;
-    int hvem[MAXPERS];
+    int   antallTotalt,
+          antallNaa;
+    int   hvem[MAXPERS];
+    struct Oppgave* neste;
 };
 
 // Function Declarations
@@ -36,6 +39,8 @@ void skrivOppgaver();
 void ledigeOppgaver();
 void personerTilknyttesOppgave();
 void oppgaveTilknyttPersoner(struct Oppgave* oppgave);
+void oppgaveSkrivData(const struct Oppgave* oppgave);
+void oppgaveLesData(struct Oppgave* oppgave);
 void fjernOppgave();
 void skrivMeny();
 
@@ -69,6 +74,24 @@ int main ()  {
     printf("\n\n");
     return 0;
 }
+/**
+ *  Read data from task
+ *
+ *  @param oppgave - The task id at hand
+ *
+ *  @return Updated task information
+ */
+void oppgaveLesData(struct Oppgave* oppgave) {
+    char navn[MAXBOKSTAVER];
+    lesText("NAVN", navn, MAXBOKSTAVER);
+
+    // Allocate dynamic memory for oppgave->navn and copy the content
+    oppgave->navn = malloc(strlen(navn) + 1);  // +1 for null terminator
+    strcpy(oppgave->navn, navn);
+
+    oppgave->antallTotalt = lesInt("PERSONER", 0, 6);
+    oppgave->antallNaa = 0;
+}
 
 /**
  *  Assigns peopple to tasks
@@ -93,6 +116,22 @@ void nyOppgave() {
  */
 void skrivOppgaver() {
 
+    for (int i = 0; i < gSisteOppgave; i++) {
+        oppgaveSkrivData(gOppgavene[i]);
+    }
+
+}
+
+void oppgaveSkrivData(const struct Oppgave* oppgave) {
+
+    printf("NAVN: %s\n"
+           "TOTALT: %d\n"
+           "ANTALL NÅ: %d\n"
+           "PERSONER: %d\n",
+           oppgave->navn,
+           oppgave->antallTotalt,
+           oppgave->antallNaa,
+           oppgave->hvem);
 }
 
 /**
