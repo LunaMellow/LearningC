@@ -2,9 +2,9 @@
 /**     Oblig 4
  *
  *      Program description:
- *          - This is in in the program
- *          - This is in in the program
- *          - This is in in the program
+ *          - Promt user with command menu
+ *          - Using structs, pointers and memory allocation
+ *          - Create new task, show tasks, assign tasks or remove tasks
  *
  *      @file Oblig 4.c
  *      @date 13-Nov-23
@@ -12,9 +12,6 @@
  *      @author Luna S.
  *      @alias LunaMellow
  *
- *      HUSK
- *      @brief Om funksjonen
- *      @see Funksjoner brukt
  */
 
 // Includes
@@ -26,7 +23,6 @@
 // Const Declarations
 #define MAXPERS 6                       ///< Maximum people
 #define MAXOPPG 20                      ///< Maximum tasks
-#define MAXBOKSTAVER 20                 ///< Maximum letters allowed
 
 // Struct Declarations
 struct Oppgave {
@@ -37,16 +33,17 @@ struct Oppgave {
 };
 
 // Function Declarations
-void nyOppgave();
-void skrivOppgaver();
-void ledigeOppgaver();
-void personerTilknyttesOppgave();
-void oppgaveTilknyttPersoner(struct Oppgave* oppgave);
-void oppgaveSkrivData(const struct Oppgave* oppgave);
-bool oppgaveLedigPlass(const struct Oppgave* oppgave);
-void oppgaveLesData(struct Oppgave* oppgave);
 void fjernOppgave();
+void ledigeOppgaver();
+void nyOppgave();
+void oppgaveLesData(struct Oppgave* oppgave);
+bool oppgaveLedigPlass(const struct Oppgave* oppgave);
+void oppgaveSkrivData(const struct Oppgave* oppgave);
+void oppgaveSlettData(struct Oppgave* oppgave);
+void oppgaveTilknyttPersoner(struct Oppgave* oppgave);
+void personerTilknyttesOppgave();
 void skrivMeny();
+void skrivOppgaver();
 
 // Global Variable Declarations
 struct Oppgave* gOppgavene[MAXOPPG];        ///< Tasks and who they are assigned to
@@ -61,7 +58,7 @@ int main ()  {
     skrivMeny();
 
     // lesChar() from LesData.h . Takes user char input
-    char kommando = lesChar("\nKommando");
+    char kommando = lesChar("\n\nKommando");
 
     // Loop menu until 'Q' reached
     while (kommando != 'Q')  {
@@ -69,13 +66,13 @@ int main ()  {
             case 'N':  nyOppgave();                 break;    //  Create new task
             case 'S':  skrivOppgaver();             break;    //  Prints out all info about tasks
             case 'L':  ledigeOppgaver();            break;    //  Available tasks
-            case 'T':  personerTilknyttesOppgave(); break;    //  Assign
-            case 'F':  fjernOppgave();              break;    //  Find a trolley
-            default:   skrivMeny();                 break;    //  Non-existent menu choice
+            case 'T':  personerTilknyttesOppgave(); break;    //  Assign people to task
+            case 'F':  fjernOppgave();              break;    //  Remove a task
+            default:   skrivMeny();                 break;    //  Print out command menu
         }
 
-        kommando = lesChar("\nKommando");
-
+        // lesChar() from LesData.h . Takes user char input
+        kommando = lesChar("\n\nKommando");
     }
 
     printf("\n\n");
@@ -83,50 +80,72 @@ int main ()  {
 }
 
 /**
- *  Read data from task
- *
- *  @param oppgave - The task id at hand
- *
- *  @return Updated task information
+ * @brief Removes a task from the task list
  */
-void oppgaveLesData(struct Oppgave* oppgave) {
+void fjernOppgave() {
 
-    oppgave->navn = lagOgLesText("Navn");
-    oppgave->antallTotalt = lesInt("Antall", 1, MAXPERS);
-    oppgave->antallNaa = 0;
-    oppgave->hvem[gSisteOppgave] = 0;
+    // Checks if any available tasks
+    if (gSisteOppgave == 0) {
+        printf("Ingen oppgaver tilgjengelig.\n");
+        return;
+    }
 
+    // Print out available tasks
+    printf("Velg oppgaven du vil fjerne, ", gSisteOppgave);
+    int valg = lesInt("0 for avbryt", 0, gSisteOppgave);
+
+    // If user types 0, cancel the operation
+    if (valg == 0) {
+        printf("Avbrutt.\n");
+        return;
+    }
+
+    // Promt user if they really want to remove task
+    printf("Er du sikker på at du vil fjerne oppgave %d? (J/N): ", valg);
+    char bekreftelse = lesChar("");
+
+    // If user input 'J' remove tasks
+    if (bekreftelse == 'J') {
+        // Free the memory for the task thats being removed
+        oppgaveSlettData(gOppgavene[valg - 1]);
+
+        // Movelast task to the removed tasks place
+        gOppgavene[valg - 1] = gOppgavene[gSisteOppgave - 1];
+
+        // Reduce total task number
+        gSisteOppgave--;
+
+        printf("Oppgave %d er fjernet.\n", valg);
+    } else {
+        printf("Fjerning av oppgave avbrutt.\n");
+    }
 }
 
 /**
- *  Assigns peopple to tasks
- *
- *  @param oppgave - The task id at hand
- *
- *  @return Updated task information
+ * @brief Prints information about tasks with available slots
  */
-void oppgaveTilknyttPersoner(struct Oppgave* oppgave) {
-
-}
-
-bool oppgaveLedigPlass(const struct Oppgave* oppgave) {
-    if (oppgave->antallNaa < oppgave->antallTotalt) {
-        return true;
+void ledigeOppgaver() {
+    // Loops through to check with oppgaveLedigPlass() if tasks are available
+    for (int i = 0; i < gSisteOppgave; i++) {
+        if (oppgaveLedigPlass(gOppgavene[i]) == true) {
+            oppgaveSkrivData(gOppgavene[i]);                // Print out available task description
+        }
     }
-    else {
-        return false;
-    }
+    printf("Ingen ledige plasser");
 }
 
 /**
- *  nyOppgave
+ * @brief Creates a new task and adds it to the task structure
  */
 void nyOppgave() {
 
-    if (gSisteOppgave < MAXOPPG) {
+    // Checks if maximum tasks are reached
+    if (gSisteOppgave <= MAXOPPG) {
 
+        // Allocates memory for new task
         gOppgavene[gSisteOppgave] = (struct Oppgave *) malloc(sizeof(struct Oppgave));
 
+        // Get user input for new task
         oppgaveLesData(gOppgavene[gSisteOppgave++]);
     }
     else {
@@ -136,69 +155,161 @@ void nyOppgave() {
 }
 
 /**
- *  skrivOppgaver
+ * @brief Reads data for a new task
+ *
+ * @param oppgave - The task for which data will be read
  */
-void skrivOppgaver() {
+void oppgaveLesData(struct Oppgave* oppgave) {
 
-    for (int i = 0; i < gSisteOppgave; i++) {
-        oppgaveSkrivData(gOppgavene[i]);
-    }
+    // Assigns user input to structs
+    oppgave->navn = lagOgLesText("Navn");
+    oppgave->antallTotalt = lesInt("Antall", 1, MAXPERS);
+    oppgave->antallNaa = 0;
+    oppgave->hvem[gSisteOppgave] = 0;
 
 }
 
+/**
+ * @brief Checks if there are available slots in a task
+ *
+ * @param oppgave - The task to be checked
+ * @return true if there are available slots, false otherwise
+ */
+bool oppgaveLedigPlass(const struct Oppgave* oppgave) {
+
+    // Checks if there are available tasks and returns true or false
+    if (oppgave->antallNaa < oppgave->antallTotalt) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+/**
+ * @brief Prints information about a task
+ *
+ * @param oppgave - The task to be printed
+ */
 void oppgaveSkrivData(const struct Oppgave* oppgave) {
 
+    // Print out task data from struct
     printf("\n\nNavn: %s\n"
            "Totalt: %d\n"
            "Antall: %d\n",
            oppgave->navn,
            oppgave->antallTotalt,
            oppgave->antallNaa);
+
+    // Check if there is anyone assigned to the task
     if (oppgave->antallNaa != 0) {
         printf("Hvem: ");
     }
 
+    // Print the assigned people's id's out
     for (int i = 0; i < oppgave->antallNaa; i++) {
         printf("%d, ", oppgave->hvem[i]);
     }
 }
 
 /**
- *  ledigeOppgaver
+ * @brief Deletes data and frees memory for a task
+ *
+ * @param oppgave - The task to be deleted
  */
-void ledigeOppgaver() {
-    for (int i = 0; i < gSisteOppgave; i++) {
-        if (oppgaveLedigPlass(gOppgavene[i]) == true) {
-            oppgaveSkrivData(gOppgavene[i]);
-        }
-        else {
-            printf("Ingen ledige plasser");
-        }
-    }
+void oppgaveSlettData(struct Oppgave* oppgave) {
 
+    // Makes sure that pointer is not NULL
+    if (oppgave != NULL) {
+        // Frees the memory for navn
+        free(oppgave->navn);
+        oppgave->navn = NULL;
+
+        // Reset to 0
+        oppgave->antallTotalt = 0;
+        oppgave->antallNaa = 0;
+
+        // Frees the memory
+        free(oppgave);
+    }
 }
 
 /**
- *  personerTilknyttesOppgave
+ * @brief Assigns people to an existing task
+ *
+ * @param oppgave - The task to which people will be assigned
+ */
+void oppgaveTilknyttPersoner(struct Oppgave* oppgave) {
+
+    // Checks if there are any tasks
+    if (gSisteOppgave == 0) {
+        printf("Ingen oppgaver tilgjengelig.\n");
+        return;
+    }
+
+    // Prints out information about the task
+    oppgaveSkrivData(oppgave);
+
+    // Checks for available spots in the task
+    if (!oppgaveLedigPlass(oppgave)) {
+        printf("Ingen ledige plasser på denne oppgaven.\n");
+        return;
+    }
+
+    // Find how many available spots in the task
+    int antallMangler = oppgave->antallTotalt - oppgave->antallNaa;
+
+    // If full, promt user
+    if (antallMangler == 0) {
+        printf("Alle plassene på denne oppgaven er allerede fylt.\n");
+        return;
+    }
+
+    // Let user assign people to task
+    printf("Angi antall personer som skal tilknyttes oppgaven", antallMangler);
+    int antallTilknytte = lesInt("", 0, antallMangler);
+
+    // Promt user for their ID's
+    for (int i = 0; i < antallTilknytte; i++) {
+        printf("Angi nummeret til person %d", i + 1);
+        int personNummer = lesInt("", 1, 1000);
+
+        // Add people to task
+        oppgave->hvem[oppgave->antallNaa++] = personNummer;
+    }
+
+    // Update information about task
+    oppgaveSkrivData(oppgave);
+}
+
+/**
+ * @brief Assigns people to an existing task
  */
 void personerTilknyttesOppgave() {
-    if (gOppgavene != 0) {
 
+    // Checks if available tasks
+    if (gSisteOppgave == 0) {
+        printf("Ingen oppgaver tilgjengelig.\n");
+        return;
     }
-    else {
-        printf("Datastrukturen er tom");
+
+    // Print out available tasks
+    printf("Velg oppgaven du vil tilknytte personer til, ", gSisteOppgave);
+    int valg = lesInt("0 for avbryt", 0, gSisteOppgave);
+
+    if (valg == 0) {
+        printf("Avbrutt.\n");
+        return;
     }
+
+    // Add people to task
+    oppgaveTilknyttPersoner(gOppgavene[valg - 1]);
+
+    printf("\n");
 }
 
 /**
- *  fjernOppgave
- */
-void fjernOppgave() {
-
-}
-
-/**
- *  Prints out the menu with a list of commands
+ * @brief Prints the command menu
  */
 void skrivMeny() {
     printf("\n--------------- Velkommen ---------------\n"
@@ -209,5 +320,19 @@ void skrivMeny() {
                   "T = Tilknytt oppgaver\n"
                   "F = Fjern oppgaver\n"
                   "\n"
+                  "Q = Lukk programmet"
+                  "\n"
                   "-----------------------------------------\n");
+}
+
+/**
+ * @brief Prints information about all tasks
+ */
+void skrivOppgaver() {
+
+    // Prints out all created tasks
+    for (int i = 0; i < gSisteOppgave; i++) {
+        oppgaveSkrivData(gOppgavene[i]);
+    }
+
 }
