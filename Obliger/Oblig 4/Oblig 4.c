@@ -11,12 +11,16 @@
  *
  *      @author Luna S.
  *      @alias LunaMellow
+ *
+ *      HUSK
+ *      @brief Om funksjonen
+ *      @see Funksjoner brukt
  */
 
 // Includes
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "LesData.h"                    // Toolkit for reading various data
 
 // Const Declarations
@@ -30,7 +34,6 @@ struct Oppgave {
     int   antallTotalt,
           antallNaa;
     int   hvem[MAXPERS];
-    struct Oppgave* neste;
 };
 
 // Function Declarations
@@ -40,6 +43,7 @@ void ledigeOppgaver();
 void personerTilknyttesOppgave();
 void oppgaveTilknyttPersoner(struct Oppgave* oppgave);
 void oppgaveSkrivData(const struct Oppgave* oppgave);
+bool oppgaveLedigPlass(const struct Oppgave* oppgave);
 void oppgaveLesData(struct Oppgave* oppgave);
 void fjernOppgave();
 void skrivMeny();
@@ -57,7 +61,7 @@ int main ()  {
     skrivMeny();
 
     // lesChar() from LesData.h . Takes user char input
-    char kommando = lesChar("Kommando");
+    char kommando = lesChar("\nKommando");
 
     // Loop menu until 'Q' reached
     while (kommando != 'Q')  {
@@ -69,11 +73,15 @@ int main ()  {
             case 'F':  fjernOppgave();              break;    //  Find a trolley
             default:   skrivMeny();                 break;    //  Non-existent menu choice
         }
+
+        kommando = lesChar("\nKommando");
+
     }
 
     printf("\n\n");
     return 0;
 }
+
 /**
  *  Read data from task
  *
@@ -82,15 +90,12 @@ int main ()  {
  *  @return Updated task information
  */
 void oppgaveLesData(struct Oppgave* oppgave) {
-    char navn[MAXBOKSTAVER];
-    lesText("NAVN", navn, MAXBOKSTAVER);
 
-    // Allocate dynamic memory for oppgave->navn and copy the content
-    oppgave->navn = malloc(strlen(navn) + 1);  // +1 for null terminator
-    strcpy(oppgave->navn, navn);
-
-    oppgave->antallTotalt = lesInt("PERSONER", 0, 6);
+    oppgave->navn = lagOgLesText("Navn");
+    oppgave->antallTotalt = lesInt("Antall", 1, MAXPERS);
     oppgave->antallNaa = 0;
+    oppgave->hvem[gSisteOppgave] = 0;
+
 }
 
 /**
@@ -104,28 +109,30 @@ void oppgaveTilknyttPersoner(struct Oppgave* oppgave) {
 
 }
 
+bool oppgaveLedigPlass(const struct Oppgave* oppgave) {
+    if (oppgave->antallNaa < oppgave->antallTotalt) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 /**
  *  nyOppgave
  */
 void nyOppgave() {
-    char svar;
 
-    do {
-        if (gSisteOppgave >= MAXOPPG) {
-            printf("Maksimalt antall oppgaver %d er nådd. Kan ikke lage flere\n", MAXOPPG);
-        }
-        else {
-            struct Oppgave *nyOppgave = (struct Oppgave *) malloc(sizeof(struct Oppgave));
+    if (gSisteOppgave < MAXOPPG) {
 
-            oppgaveLesData(nyOppgave);
+        gOppgavene[gSisteOppgave] = (struct Oppgave *) malloc(sizeof(struct Oppgave));
 
-            nyOppgave->neste = gOppgavene[gSisteOppgave];
-            gOppgavene[gSisteOppgave] = nyOppgave;
-            gSisteOppgave++;
+        oppgaveLesData(gOppgavene[gSisteOppgave++]);
+    }
+    else {
+        printf("Maksimalt antall oppgaver %d oppnådd", MAXOPPG);
+    }
 
-            lesText("En oppgave til (j/N)",&svar,1); getchar();
-        }
-    } while (svar != tolower('n'));
 }
 
 /**
@@ -141,20 +148,33 @@ void skrivOppgaver() {
 
 void oppgaveSkrivData(const struct Oppgave* oppgave) {
 
-    printf("NAVN: %s\n"
-           "TOTALT: %d\n"
-           "ANTALL NÅ: %d\n"
-           "PERSONER: %d\n",
+    printf("\n\nNavn: %s\n"
+           "Totalt: %d\n"
+           "Antall: %d\n",
            oppgave->navn,
            oppgave->antallTotalt,
-           oppgave->antallNaa,
-           oppgave->hvem); // Loop gjennom
+           oppgave->antallNaa);
+    if (oppgave->antallNaa != 0) {
+        printf("Hvem: ");
+    }
+
+    for (int i = 0; i < oppgave->antallNaa; i++) {
+        printf("%d, ", oppgave->hvem[i]);
+    }
 }
 
 /**
  *  ledigeOppgaver
  */
 void ledigeOppgaver() {
+    for (int i = 0; i < gSisteOppgave; i++) {
+        if (oppgaveLedigPlass(gOppgavene[i]) == true) {
+            oppgaveSkrivData(gOppgavene[i]);
+        }
+        else {
+            printf("Ingen ledige plasser");
+        }
+    }
 
 }
 
@@ -162,7 +182,12 @@ void ledigeOppgaver() {
  *  personerTilknyttesOppgave
  */
 void personerTilknyttesOppgave() {
+    if (gOppgavene != 0) {
 
+    }
+    else {
+        printf("Datastrukturen er tom");
+    }
 }
 
 /**
