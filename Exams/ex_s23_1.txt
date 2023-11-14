@@ -1,0 +1,22 @@
+﻿/**
+ *   Løsning til eksamen i GrProg (i C), august 2023, oppgave 1.
+ *
+ *   @file     EX_S23_1.TXT
+ *   @author   Frode Haug, NTNU
+ */
+
+
+
+A)  Svar:   M E
+            S O
+            O K
+            - E
+            E U
+
+
+
+B)  Svar:   Telenor Arena: Oslo (25000)   Koengen: Bergen (24000)
+            Banan
+            1 0
+            Koengen: Bergen/Festning (24000)
+            Koengen: Oslo (49000)

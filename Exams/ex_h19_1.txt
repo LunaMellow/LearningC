@@ -1,0 +1,22 @@
+﻿/**
+ *   Løsning til eksamen i GrProg (i C), november 2019, oppgave 1.
+ *
+ *   @file     EX_H19_1.TXT
+ *   @author   Frode Haug, NTNU
+ */
+
+
+
+A)  Svar:   ALLER-
+            L R F
+            14
+            E T D
+             T E D
+
+
+
+B)  Svar:   PROG1001 - GrProg, 150x   IMT1031 - GrProg, 120x
+            PROG1001 - GrProg, 220x
+            1
+            IMT2021 - GrProg, 20x
+            IMT1031 - GrProg - utgaar herved, 120x

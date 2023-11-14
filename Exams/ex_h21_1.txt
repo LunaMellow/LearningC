@@ -1,0 +1,22 @@
+﻿/**
+ *   Løsning til eksamen i GrProg (i C), november 2021, oppgave 1.
+ *
+ *   @file     EX_H21_1.TXT
+ *   @author   Frode Haug, NTNU
+ */
+
+
+
+A)  Svar:   N A E
+            N - V I - H
+            I N H S U V
+            K K
+            - S
+
+
+
+B)  Svar:   Moderna, satt den 17/8-21
+            210615
+            1
+            210817
+            AquavitPfizerPfizer, satt den 24/12-21

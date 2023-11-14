@@ -1,0 +1,23 @@
+﻿/**
+ *   Løsning til eksamen i GrProg (i C), desember 2022, oppgave 1.
+ *
+ *   @file     EX_H22_1.TXT
+ *   @author   Frode Haug, NTNU
+ */
+
+
+
+A)  Svar:   E M M L N N
+            M M L
+            5
+            18 32
+            Odegaard
+
+
+
+B)  Svar:   Arsenal, Rod     Norwich, Gul     Tottenham, Hvit
+            62850
+            0 1
+            Tottenham, Gul      62850
+            19 94
+

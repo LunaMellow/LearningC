@@ -1,0 +1,22 @@
+﻿/**
+ *   Løsning til eksamen i GrProg (i C), august 2022, oppgave 1.
+ *
+ *   @file     EX_S22_1.TXT
+ *   @author   Frode Haug, NTNU
+ */
+
+
+
+A)  Svar:   V I -
+            E - O D
+            D R J
+            T R
+            N T
+
+
+
+B)  Svar:   Kroatia, 14 dager, 8 personer
+            17
+            1
+            Stavern, 9 dager, 1 personer
+            0
