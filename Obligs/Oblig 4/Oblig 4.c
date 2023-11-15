@@ -81,6 +81,8 @@ int main ()  {
 
 /**
  * @brief Removes a task from the task list
+ *
+ * @see oppgaveSlettData(...)
  */
 void fjernOppgave() {
 
@@ -129,6 +131,9 @@ void fjernOppgave() {
 
 /**
  * @brief Prints information about tasks with available slots
+ *
+ * @see oppgaveLedigPlass(...)
+ * @see oppgaveSkrivData(...)
  */
 void ledigeOppgaver() {
     // Loops through to check with oppgaveLedigPlass() if tasks are available
@@ -142,6 +147,8 @@ void ledigeOppgaver() {
 
 /**
  * @brief Creates a new task and adds it to the task structure
+ *
+ * @see oppgaveLesData(...)
  */
 void nyOppgave() {
 
@@ -244,6 +251,9 @@ void oppgaveSlettData(struct Oppgave* oppgave) {
  * @brief Assigns people to an existing task
  *
  * @param oppgave - The task to which people will be assigned
+ *
+ * @see oppgaveSkrivData(...)
+ * @see oppgaveLedigPlass(...)
  */
 void oppgaveTilknyttPersoner(struct Oppgave* oppgave) {
 
@@ -290,6 +300,8 @@ void oppgaveTilknyttPersoner(struct Oppgave* oppgave) {
 
 /**
  * @brief Assigns people to an existing task
+ *
+ * @see oppgaveTilknyttPersoner(...)
  */
 void personerTilknyttesOppgave() {
 
@@ -333,6 +345,8 @@ void skrivMeny() {
 
 /**
  * @brief Prints information about all tasks
+ *
+ * @see oppgaveSkrivData(...)
  */
 void skrivOppgaver() {
 
