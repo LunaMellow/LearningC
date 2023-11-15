@@ -25,11 +25,6 @@ struct Tralle {
     int tlfNr;
 };
 
-// Declare Global Variables
-struct Tralle gTraller[30]; // Array of Trolley-structs
-int gAntallUtlaant = 0; // Number of trolleys currently rented
-const int MAXTRALLER = 30; ///< Maximum number of trolleys available to rent
-
 // Function Declarations
 void finnLaaner();
 void innlevering();
@@ -38,6 +33,11 @@ char lesKommando();
 void oversikt();
 void skrivMeny();
 void utlaan();
+
+// Declare Global Variables
+struct Tralle gTraller[30]; // Array of Trolley-structs
+int gAntallUtlaant = 0; // Number of trolleys currently rented
+const int MAXTRALLER = 30; ///< Maximum number of trolleys available to rent
 
 /**
  *      Main Program Starts Here
@@ -79,10 +79,21 @@ void innlevering() {
 }
 
 /**
- *  Available trolleys
+ *  Prints out the available trolleys
  */
 void ledige(){
-    printf("Ledige Traller");
+    if (gAntallUtlaant >= MAXTRALLER) {
+        printf("Beklager, alle traller er utlånt");
+        return;
+    }
+    else {
+        printf("Ledige Traller:\n  ");
+        for (int i = 0; i < MAXTRALLER; i++) {
+            if (gTraller[i].utlaant != true) {
+                printf("%i, ", i+1);
+            }
+        }
+    }
 }
 
 /**
@@ -122,9 +133,15 @@ int lesTall(const char tekst[], const int min, const int max) {
  *  @param   tekst      - Char array filled with the user inputted text
  *
  */
-void lesTekst(const char ledetekst[], char tekst[]) {
+void lesTekst(const char ledetekst[], char tekst[], size_t maxLen) {
     printf("\t%s:  ", ledetekst);
-    gets(tekst);                    //  Updates ORIGINAL/actual parameter.
+    fgets(tekst, maxLen, stdin);
+
+    // Remove the newline character if present
+    size_t len = strlen(tekst);
+    if (len > 0 && tekst[len - 1] == '\n') {
+        tekst[len - 1] = '\0';
+    }
 }
 
 /**
@@ -153,5 +170,31 @@ void skrivMeny() {
  *  Rent a trolley
  */
 void utlaan() {
-    printf("Utlån Traller");
+    int tralleNr;
+
+    // Keep asking for a trolley number until a valid, available trolley is selected
+    while (1) {
+        tralleNr = lesTall("Skriv trallenummeret du ønsker å låne", 1, MAXTRALLER);
+
+        // Check if the selected trolley is already rented
+        if (gTraller[tralleNr-1].utlaant) {
+            printf("Tralle er allerede utlånt. Velg en annen tralle.\n");
+        } else {
+            break;  // Exit the loop if the selected trolley is available
+        }
+    }
+
+    lesTekst("Navn", gTraller[tralleNr-1].navn, sizeof(gTraller[tralleNr-1].navn));
+    printf("Telefonnr: ");
+    scanf(" %d", &gTraller[tralleNr-1].tlfNr);
+
+    gTraller[tralleNr-1].utlaant = true;
+    gAntallUtlaant++;
+
+    printf("\nTrallen din, nr. %d\n"
+           "--------------------\n"
+           "Navn: %s\n"
+           "Telefonnr: %d\n", tralleNr,
+           gTraller[tralleNr-1].navn,
+           gTraller[tralleNr-1].tlfNr);
 }
