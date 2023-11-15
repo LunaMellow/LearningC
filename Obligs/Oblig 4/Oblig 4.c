@@ -84,14 +84,14 @@ int main ()  {
  */
 void fjernOppgave() {
 
-    // Checks if any available tasks
+    // Checks if no available tasks
     if (gSisteOppgave == 0) {
         printf("Ingen oppgaver tilgjengelig.\n");
         return;
     }
 
     // Print out available tasks
-    printf("Velg oppgaven du vil fjerne, ", gSisteOppgave);
+    printf("Velg oppgaven du vil fjerne: ");
     int valg = lesInt("0 for avbryt", 0, gSisteOppgave);
 
     // If user types 0, cancel the operation
@@ -100,25 +100,31 @@ void fjernOppgave() {
         return;
     }
 
-    // Promt user if they really want to remove task
+    // Prompt user if they really want to remove the task
     printf("Er du sikker på at du vil fjerne oppgave %d? (J/N): ", valg);
     char bekreftelse = lesChar("");
 
-    // If user input 'J' remove tasks
-    if (bekreftelse == 'J') {
-        // Free the memory for the task thats being removed
-        oppgaveSlettData(gOppgavene[valg - 1]);
-
-        // Movelast task to the removed tasks place
-        gOppgavene[valg - 1] = gOppgavene[gSisteOppgave - 1];
-
-        // Reduce total task number
-        gSisteOppgave--;
-
-        printf("Oppgave %d er fjernet.\n", valg);
-    } else {
+    // If user input is not 'J', cancel the removal
+    if (bekreftelse != 'J') {
         printf("Fjerning av oppgave avbrutt.\n");
+        return;
     }
+
+    // Free the memory for the task that's being removed
+    oppgaveSlettData(gOppgavene[valg - 1]);
+
+    // Move the last task to the removed task's place
+    if (valg < gSisteOppgave) {
+        gOppgavene[valg - 1] = gOppgavene[gSisteOppgave - 1];
+        printf("\n\tSiste ble flyttet til den slettedes plass/nummer.\n\n");
+    } else {
+        printf("\n\tSiste/bakerste oppgave ble fjernet/slettet.\n\n");
+    }
+
+    // Reduce total task number
+    gSisteOppgave--;
+
+    printf("Oppgave %d er fjernet.\n", valg);
 }
 
 /**
