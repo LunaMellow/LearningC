@@ -48,6 +48,10 @@ int main ()  {
     skrivMeny();
     kommando = lesKommando();
 
+    for (int i = 0; i < MAXTRALLER; i++) {
+        gTraller[i].utlaant = false;
+    }
+
     while (kommando != 'Q')  {
         switch (kommando)  {
             case 'O':  oversikt();      break;    //  Overview over rented trolleys
@@ -68,14 +72,55 @@ int main ()  {
  *  Find trolley owner
  */
 void finnLaaner() {
-    printf("Finn Traller");
+    char navn[80];  // Assuming navn is a string
+    bool eierTralle = false;
+
+    lesTekst("Skriv navnet på en tralleeier", navn, sizeof(navn));
+
+    printf("\n\t%s eier tralle:\n\t", navn);
+
+    for (int i = 0; i < MAXTRALLER; i++) {
+        if (strcmp(gTraller[i].navn, navn) == 0 && gTraller[i].utlaant == true) {
+            printf("%d, ", i+1);  // Adjusted to print tralle number
+            eierTralle = true;
+        }
+    }
+
+    printf("\n");
+
+    if (!eierTralle) {
+        printf("\n\tBeklager, %s eier ingen traller for øyeblikket\n", navn);
+    }
 }
+
 
 /**
  *  Return trolley
  */
 void innlevering() {
-    printf("Innlever Traller");
+    int tralleNr;
+
+    if (gAntallUtlaant <= 0) {
+        printf("\n\tBeklager, det er ingen utlånte traller\n");
+        return;
+    }
+
+    while (1) {
+        tralleNr = lesTall("Skriv trallenummeret du ønsker å levere inn", 1, MAXTRALLER);
+
+        // Check if the selected trolley is rented or not
+        if (gTraller[tralleNr-1].utlaant = false) {
+            printf("\tTralle er ikke utlånt. Velg en annen tralle.\n");
+        } else {
+            break;  // Exit the loop if the selected trolley is available
+        }
+    }
+
+    gTraller[tralleNr-1].utlaant = false;
+    gAntallUtlaant--;
+
+    printf("\n\t%s sin tralle er nå innlevert\n",gTraller[tralleNr-1].navn);
+
 }
 
 /**
@@ -83,16 +128,17 @@ void innlevering() {
  */
 void ledige(){
     if (gAntallUtlaant >= MAXTRALLER) {
-        printf("Beklager, alle traller er utlånt");
+        printf("\n\tBeklager, alle traller er utlånt\n");
         return;
     }
     else {
-        printf("Ledige Traller:\n  ");
+        printf("\n\tLedige Traller:\n\t");
         for (int i = 0; i < MAXTRALLER; i++) {
             if (gTraller[i].utlaant != true) {
                 printf("%i, ", i+1);
             }
         }
+        printf("\n");
     }
 }
 
@@ -148,7 +194,16 @@ void lesTekst(const char ledetekst[], char tekst[], size_t maxLen) {
  *  Overview over rented trolleys
  */
 void oversikt() {
-    printf("Oversikt Traller");
+    if (gAntallUtlaant <= 0) {
+        printf("\n\tBeklager, det er ingen utlånte traller\n");
+        return;
+    }
+
+    for (int i = 0; i < MAXTRALLER; i++) {
+        if (gTraller[i].utlaant == true) {
+            printf("\n\tTrallenr: %d\n\tNavn: %s\n\tTelefonnr: %d\n", i+1, gTraller[i].navn, gTraller[i].tlfNr);  // Adjusted to print tralle number
+        }
+    }
 }
 
 /**
@@ -178,23 +233,23 @@ void utlaan() {
 
         // Check if the selected trolley is already rented
         if (gTraller[tralleNr-1].utlaant) {
-            printf("Tralle er allerede utlånt. Velg en annen tralle.\n");
+            printf("\nTralle er allerede utlånt. Velg en annen tralle.\n");
         } else {
             break;  // Exit the loop if the selected trolley is available
         }
     }
 
     lesTekst("Navn", gTraller[tralleNr-1].navn, sizeof(gTraller[tralleNr-1].navn));
-    printf("Telefonnr: ");
+    printf("\tTelefonnr: ");
     scanf(" %d", &gTraller[tralleNr-1].tlfNr);
 
     gTraller[tralleNr-1].utlaant = true;
     gAntallUtlaant++;
 
-    printf("\nTrallen din, nr. %d\n"
-           "--------------------\n"
-           "Navn: %s\n"
-           "Telefonnr: %d\n", tralleNr,
+    printf("\n\tTrallen din, nr. %d\n"
+           "\t--------------------\n"
+           "\tNavn: %s\n"
+           "\tTelefonnr: %d\n", tralleNr,
            gTraller[tralleNr-1].navn,
            gTraller[tralleNr-1].tlfNr);
 }
