@@ -178,7 +178,6 @@ void oppgaveLesData(struct Oppgave* oppgave) {
     oppgave->navn = lagOgLesText("Navn");
     oppgave->antallTotalt = lesInt("Antall", 1, MAXPERS);
     oppgave->antallNaa = 0;
-    oppgave->hvem[gSisteOppgave] = 0;
 
 }
 
