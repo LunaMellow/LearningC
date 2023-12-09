@@ -1,5 +1,6 @@
 
 /**     Numbers Squared
+ *      Task 23 in grprog.pdf
  *
  *      Program description:
  *          - Call a function summerKvadrater() with random numbers
