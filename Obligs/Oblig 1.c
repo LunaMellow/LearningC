@@ -18,12 +18,12 @@
 // Includes
 #include <stdio.h>
 
+// Declare const int variables
+const int STRLEN = 20;                          // Constant string length 20
+
 /**
  *      Main Program starts here
  */
-
-// Declare const int variables
-const int STRLEN = 20;                          // Constant string length 20
 
 int main() {
 
