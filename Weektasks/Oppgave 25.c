@@ -38,31 +38,31 @@ int main() {
     // Promt user to find length of string
     printf("\n~ Finn lengden av en streng ~");
     printf("\nSkriv en streng: ");
-    scanf("%s", &ans);
+    scanf("%24s", &ans);
     printf("\nLengde på strengen: %d", mstrlen(ans));
 
     // Promt user to copy string into another
     printf("\n\n~ Kopier en streng inn i en annen ~");
     printf("\nByttbar streng: ");
-    scanf("%s", &ans);
+    scanf("%24s", &ans);
     printf("\nSkriv enda en streng: ");
-    scanf("%s", &ans2);
+    scanf("%24s", &ans2);
     mstrcpy(ans, ans2);
 
     // Promt user to copy a string at the end of another
     printf("\n\n~ Kopier en streng på enden av en annen ~");
     char tihi[] = "Hello ";
     printf("\nFullfør setningen 'Hello .....': ");
-    scanf("%s", &ans);
+    scanf("%24s", &ans);
     printf("\nDen sammensatte strengen: ");
     mstrcat(tihi, ans);
 
     // Promt user to compare strings
     printf("\n\nSammelign to strenger");
     printf("\nSkriv en streng: ");
-    scanf("%s", &ans);
+    scanf("%24s", &ans);
     printf("\nSkriv enda en streng: ");
-    scanf("%s", &ans2);
+    scanf("%24s", &ans2);
 
     // Print the string comparison result accordingly
     int alike = mstrcmp(ans, ans2);
