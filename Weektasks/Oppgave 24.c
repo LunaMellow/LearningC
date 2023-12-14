@@ -87,13 +87,13 @@ int hentVerdi(const int n, enum Handling handling) {
         case MINSTE:
 
             // Initial number is smallest
-            printf("\tNummer %d: ", n);
+            printf("\tNummer 1: ");
             scanf("%d", &nummer);
             minste = nummer;
 
             // Iterate and check if new number is smaller than previous
             for (int i = 0; i < n-1; i++) {
-                printf("\tNummer %d: ", n);
+                printf("\tNummer %d: ", i+2);
                 scanf("%d", &nummer);
 
                 if (nummer < minste) {
@@ -106,13 +106,13 @@ int hentVerdi(const int n, enum Handling handling) {
         case STORSTE:
 
             // Initial number is biggest
-            printf("\tNummer %d: ", n);
+            printf("\tNummer 1: ");
             scanf("%d", &nummer);
             storste = nummer;
 
             // Iterate and check if new number is larger than previous
             for (int i = 0; i < n-1; i++) {
-                printf("\tNummer %d: ", n);
+                printf("\tNummer %d: ", i+2);
                 scanf("%d", &nummer);
 
                 if (nummer > storste) {
@@ -138,13 +138,13 @@ int hentMinsteVerdi(const int n) {
     int nummer;
 
     // Initial number is smallest
-    printf("\tNummer %d: ", n);
+    printf("\tNummer 1: ");
     scanf("%d", &nummer);
     minste = nummer;
 
     // Iterate and check if new number is smaller than previous
     for (int i = 0; i < n-1; i++) {
-        printf("\tNummer %d: ", n);
+        printf("\tNummer %d: ", i+2);
         scanf("%d", &nummer);
 
         if (nummer < minste) {
@@ -167,13 +167,13 @@ int hentStorsteVerdi(const int n) {
     int nummer;
 
     // Initial number is biggest
-    printf("\tNummer %d: ", n);
+    printf("\tNummer %1: ");
     scanf("%d", &nummer);
     storste = nummer;
 
     // Iterate and check if new number is larger than previous
     for (int i = 0; i < n-1; i++) {
-        printf("\tNummer %d: ", n);
+        printf("\tNummer %d: ", i+2);
         scanf("%d", &nummer);
 
         if (nummer > storste) {
