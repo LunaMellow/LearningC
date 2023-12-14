@@ -3,9 +3,9 @@
  *      Task 26 in grprog.pdf
  *
  *      Program description:
- *          - This is in in the program
- *          - This is in in the program
- *          - This is in in the program
+ *          - Get two dates from user
+ *          - Call a function to find the earliest one
+ *          - Return the date that comes first
  *
  *      @file Oppgave 26.c
  *      @date 14-Dec-23
