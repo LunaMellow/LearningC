@@ -25,8 +25,8 @@ struct Dato {
 };
 
 // Struct declarations
-struct Dato gDato;
-struct Dato gDato2;
+struct Dato gDato;          ///< First date struct
+struct Dato gDato2;         ///< Second date struct
 
 // Function declarations
 int datocmp (const struct Dato dato, const struct Dato dato2);
@@ -79,6 +79,14 @@ int main() {
     return 0;
 }
 
+/**
+ *  Take two dates and find which comes first
+ *
+ * @param dato  - First date given by user
+ * @param dato2 - Second date given by user
+ *
+ * @return Number corresponding to alike or earliest
+ */
 int datocmp (const struct Dato dato, const struct Dato dato2) {
     if (dato.aar != dato2.aar)
         return (dato.aar > dato2.aar) ? -1 : 1;
